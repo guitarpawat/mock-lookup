@@ -1,6 +1,6 @@
 syntax = "proto3";
 package protos;
-option go_package=".";
+option go_package="./protos";
 
 service LookupService {
   rpc Lookup(LookupReq) returns (LookupRes);

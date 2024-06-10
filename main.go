@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/guitarpawat/mock-lookup/protos"
 	"go.openly.dev/pointy"
+	_ "go.uber.org/automaxprocs"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"

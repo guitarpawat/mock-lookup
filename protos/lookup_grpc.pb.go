@@ -4,7 +4,7 @@
 // - protoc             v4.23.4
 // source: protos/lookup.proto
 
-package __
+package protos
 
 import (
 	context "context"
