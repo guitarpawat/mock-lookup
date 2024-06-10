@@ -76,7 +76,8 @@ func main() {
 
 func parseCache() {
 	// Split the data into lines
-	lines := strings.Split(data, "\r\n")
+	newLine := fmt.Sprintln()
+	lines := strings.Split(data, newLine)
 	cache = make(map[string]string, len(lines))
 
 	// Iterate through the lines and parse the data
