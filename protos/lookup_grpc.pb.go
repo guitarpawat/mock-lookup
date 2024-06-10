@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.23.4
-// source: lookup.proto
+// source: protos/lookup.proto
 
-package protos
+package __
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	LookupService_Lookup_FullMethodName = "/encipher_proto.LookupService/Lookup"
+	LookupService_Lookup_FullMethodName = "/protos.LookupService/Lookup"
 )
 
 // LookupServiceClient is the client API for LookupService service.
@@ -96,7 +96,7 @@ func _LookupService_Lookup_Handler(srv interface{}, ctx context.Context, dec fun
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var LookupService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "encipher_proto.LookupService",
+	ServiceName: "protos.LookupService",
 	HandlerType: (*LookupServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -105,5 +105,5 @@ var LookupService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "lookup.proto",
+	Metadata: "protos/lookup.proto",
 }

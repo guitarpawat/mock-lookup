@@ -1,6 +1,6 @@
 syntax = "proto3";
-package encipher_proto;
-option go_package="./protos";
+package protos;
+option go_package=".";
 
 service LookupService {
   rpc Lookup(LookupReq) returns (LookupRes);
