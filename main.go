@@ -5,6 +5,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/guitarpawat/mock-lookup/protos"
+	"github.com/spf13/viper"
 	"go.openly.dev/pointy"
 	_ "go.uber.org/automaxprocs"
 	"golang.org/x/net/http2"
@@ -26,18 +27,21 @@ var data string
 var cache map[string]string
 
 func init() {
-	cache = make(map[string]string)
+	cache = make(map[string]string, 500)
+	viper.SetDefault("HTTP1_PORT", "8081")
+	viper.SetDefault("HTTP2_PORT", "8082")
+	viper.SetDefault("GRPC_PORT", "8083")
+	viper.AutomaticEnv()
 	parseCache()
 }
 
 func main() {
-
 	// HTTP 1.1
 	go func() {
 		mux := http.NewServeMux()
 		mux.HandleFunc("GET /phone", handleHttpLookup)
 		mux.HandleFunc("GET /health", health)
-		panic(http.ListenAndServe(":8080", mux))
+		panic(http.ListenAndServe(":"+viper.GetString("HTTP1_PORT"), mux))
 	}()
 
 	// HTTP 2
@@ -47,7 +51,7 @@ func main() {
 		mux.HandleFunc("GET /health", health)
 		h2s := new(http2.Server)
 		server := &http.Server{
-			Addr:    ":8082",
+			Addr:    ":" + viper.GetString("HTTP2_PORT"),
 			Handler: h2c.NewHandler(mux, h2s),
 		}
 		panic(server.ListenAndServe())
@@ -55,7 +59,7 @@ func main() {
 
 	// gRPC
 	go func() {
-		lis, err := net.Listen("tcp", ":8084")
+		lis, err := net.Listen("tcp", ":"+viper.GetString("GRPC_PORT"))
 		if err != nil {
 			log.Fatalf("failed to listen: %v", err)
 		}
